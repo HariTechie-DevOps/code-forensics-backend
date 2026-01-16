@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/forensic_db?createDatabaseIfNotExist=true
     username: root
-    password: your_password
+    password: Nova
   jpa:
     hibernate:
       ddl-auto: update

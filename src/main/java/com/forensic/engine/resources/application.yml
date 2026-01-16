@@ -1,1 +1,19 @@
+spring:
+  application:
+    name: code-forensics-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/forensic_db?createDatabaseIfNotExist=true
+    username: root
+    password: your_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
+# YOUR BEHAVIORAL SENSORS (NO HARDCODING)
+forensics:
+  weights:
+    grammar-perfection: 0.60
+    logic-density: 0.40
+  thresholds:
+    ai-confirmed: 0.75

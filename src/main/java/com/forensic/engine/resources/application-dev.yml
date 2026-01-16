@@ -1,1 +1,32 @@
+spring:
+  # Configuration for your local development database
+  datasource:
+    url: jdbc:mysql://localhost:3306/forensic_db_dev?createDatabaseIfNotExist=true
+    username: root
+    password: Nova
+  
+  # Hibernate settings for development
+  jpa:
+    hibernate:
+      ddl-auto: update      # Automatically creates/updates tables based on your Entities
+    show-sql: true          # Prints the actual SQL queries to your console
+    properties:
+      hibernate:
+        format_sql: true    # Makes the printed SQL easy to read
+        dialect: org.hibernate.dialect.MySQLDialect
 
+# Custom Forensic Weights for Testing
+# You can change these numbers here to test how the "AI Probability" changes
+forensics:
+  weights:
+    grammar-perfection: 0.60
+    logic-density: 0.40
+  thresholds:
+    ai-confirmed: 0.70
+
+# Logging Levels: This helps you debug your "Behavioral" logic
+logging:
+  level:
+    root: INFO
+    com.forensic.engine: DEBUG    # Shows your custom "Detective" logs
+    org.hibernate.SQL: DEBUG      # Shows exact database interactions

@@ -12,7 +12,7 @@ public class CodeAnalysisController {
     private final AnalysisService service;
 
     @PostMapping("/analyze")
-    public AnalysisReport postAnalysis(@RequestBody String code) {
-        return service.analyze(code);
+    public AnalysisReport postAnalysis(@RequestBody RequestDTO request) {
+        return service.analyze(request);
     }
 }

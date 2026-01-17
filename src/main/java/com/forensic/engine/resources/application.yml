@@ -2,18 +2,19 @@ spring:
   application:
     name: code-forensics-backend
   datasource:
-    url: jdbc:mysql://localhost:3306/forensic_db?createDatabaseIfNotExist=true
-    username: root
-    password: Nova
+    # Use environment variables for URL, Username, and Password
+    url: ${DB_URL:jdbc:mysql://localhost:3306/forensic_db?createDatabaseIfNotExist=true}
+    username: ${DB_USER:root}
+    password: ${DB_PASS:Nova} 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
-# YOUR BEHAVIORAL SENSORS (NO HARDCODING)
+# YOUR BEHAVIORAL SENSORS (DYNAMICALLY TUNABLE)
 forensics:
   weights:
-    grammar-perfection: 0.60
-    logic-density: 0.40
+    grammar-perfection: ${GRAMMAR_WEIGHT:0.60}
+    logic-density: ${LOGIC_WEIGHT:0.40}
   thresholds:
-    ai-confirmed: 0.75
+    ai-confirmed: ${AI_THRESHOLD:0.75}

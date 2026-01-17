@@ -1,5 +1,6 @@
 package com.forensic.engine.controller;
 
+import com.forensic.engine.dto.RequestDTO; // Added Import
 import com.forensic.engine.entity.AnalysisReport;
 import com.forensic.engine.service.AnalysisService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ public class CodeAnalysisController {
 
     @PostMapping("/analyze")
     public AnalysisReport postAnalysis(@RequestBody RequestDTO request) {
+        // This now correctly passes the DTO to the dynamic service
         return service.analyze(request);
     }
 }

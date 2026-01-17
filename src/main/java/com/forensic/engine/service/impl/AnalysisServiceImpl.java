@@ -18,9 +18,11 @@ public class AnalysisServiceImpl implements AnalysisService {
     @Override
     public AnalysisReport analyze(RequestDTO request) {
         String code = request.getCode();
+        // Logical Thinking: Fallback to 'generic' rules if the language is not provided
         String lang = (request.getLanguage() != null) ? request.getLanguage().toLowerCase() : "generic";
 
         // 1. Fetch Dynamic Rules from Config (Zero Hard-Coding)
+        // This makes the project work for ALL languages via application.yml
         DetectionWeights.LanguageRule rule = weights.getRules().getOrDefault(lang, weights.getRules().get("generic"));
 
         // 2. Logic: Calculate Linguistic Score (Formal Keywords)
@@ -29,7 +31,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         // 3. Logic: Calculate Logic Density (Complexity Patterns)
         double logic = calculatePatternMatch(code, rule.getComplexityPatterns());
 
-        // 4. Calculate Final Weighted Score
+        // 4. Calculate Final Weighted Score using weights from application.yml
         double finalScore = (grammar * weights.getGrammarPerfection()) + 
                            (logic * weights.getLogicDensity());
 
@@ -46,7 +48,6 @@ public class AnalysisServiceImpl implements AnalysisService {
     private double calculatePatternMatch(String code, List<String> patterns) {
         if (patterns == null || patterns.isEmpty()) return 0.0;
         long matches = patterns.stream().filter(code::contains).count();
-        // Returns a percentage (e.g., 0.5 if half the keywords are found)
         return (double) matches / patterns.size();
     }
 }

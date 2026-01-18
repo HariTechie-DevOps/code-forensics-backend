@@ -23,14 +23,15 @@ class AnalysisServiceTest {
 
     @Test
     void testServiceSavesToDatabase() {
-        String code = "int x = 10;";
-        
-        // Mock the repository to return a report when saved
+        // 1. Create the DTO
+        com.forensic.engine.dto.RequestDTO request = new com.forensic.engine.dto.RequestDTO();
+        request.setSnippet("int x = 10;"); // Assuming 'snippet' is the field name
+    
         when(repository.save(any(AnalysisReport.class))).thenReturn(new AnalysisReport());
 
-        service.analyze(code);
+        // 2. Pass the DTO instead of the String
+        service.analyze(request);
 
-        // Verify that the repository's save method was called exactly once
         verify(repository, times(1)).save(any(AnalysisReport.class));
     }
 }
